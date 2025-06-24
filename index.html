@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artlink</title>
+</head>
+<body style="font-family: sans-serif; background-color: #1e1e2f; color: white; padding: 20px;">
+
+  <h2>Добро пожаловать в <strong>Artlink</strong> 👋</h2>
+  <p><strong>Выберите категорию:</strong></p>
+
+  <form id="orderForm">
+    <select name="category" required style="width: 100%; padding: 10px;">
+      <option value="" disabled selected>Выберите категорию</option>
+      <option value="Обложки и превью">🎨 Обложки и превью</option>
+      <option value="Оформление соцсетей">🖼️ Оформление соцсетей</option>
+      <option value="Иллюстрации и арты">🖌 Иллюстрации и арты</option>
+    </select>
+
+    <br><br>
+
+    <label>Описание заказа:</label><br>
+    <textarea name="description" rows="4" required style="width: 100%; padding: 10px;"></textarea>
+
+    <br><br>
+
+    <label>Ваш контакт (Telegram или e-mail):</label><br>
+    <input type="text" name="contact" required style="width: 100%; padding: 10px;">
+
+    <br><br>
+
+    <button type="submit" style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; font-size: 16px;">
+      📨 Отправить заявку
+    </button>
+  </form>
+
+  <script>
+    const form = document.getElementById('orderForm');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const data = {
+        category: form.category.value,
+        description: form.description.value,
+        contact: form.contact.value,
+      };
+
+      if (window.Telegram.WebApp) {
+        Telegram.WebApp.sendData(JSON.stringify(data));  // отправка боту
+        Telegram.WebApp.close();  // закрытие WebApp
+      } else {
+        alert("Telegram WebApp не поддерживается.");
+      }
+    });
+  </script>
+</body>
+</html>
